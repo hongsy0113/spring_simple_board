@@ -3,6 +3,8 @@ package com.study.board.service;
 import com.study.board.entity.Board;
 import com.study.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,9 +45,11 @@ public class BoardService {
     }
 
     // 게시글 리스트 처리
-    public List<Board> boardList() {
+    // 그냥 findAll 은 List를 반환하지만
+    // pageable이 들어가면 Page를 반환한다
+    public Page<Board> boardList(Pageable pageable) {
 
-        return boardRepository.findAll();
+        return boardRepository.findAll(pageable);
     }
 
     // 특정 게시글 불러오기
